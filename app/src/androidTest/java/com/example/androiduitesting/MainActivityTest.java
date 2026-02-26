@@ -52,4 +52,25 @@ public class MainActivityTest {
         onView(withId(R.id.button_confirm)).perform(click());
         onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list )).atPosition(0).check(matches((withText("Edmonton"))));
     }
+
+    @Test
+    public void testFragment() {
+
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
+
+        // Check activity correctly switched
+        onView(withId(R.id.back)).check(matches(isDisplayed()));
+
+        // Test city name
+        onView(withId(R.id.textView)).check(matches(withText("Edmonton")));
+
+        onView(withId(R.id.back)).perform(click());
+
+        // Test the "back" button
+        onView(withId(R.id.city_list)).check(matches(isDisplayed()));
+    }
 }

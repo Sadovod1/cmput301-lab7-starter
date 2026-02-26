@@ -64,5 +64,20 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+
+        ListView cityList = findViewById(R.id.city_list);
+
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+
+            String selectedCity = (String) parent.getItemAtPosition(position);
+
+            ShowFragment fragment = ShowFragment.newInstance(selectedCity);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(android.R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 }
